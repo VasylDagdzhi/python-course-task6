@@ -20,31 +20,30 @@ print("Task 1. \n")
 
 
 class FibonacciNumbers:
-    n1 = 1
-    n2 = 1
-    iteration = 0
-    max_iterations = 0
+    fibo: int
+    next_fibo: int
+    max_iterations: int
 
     def __init__(self, max_iterations):
         self.max_iterations = max_iterations
 
     def __iter__(self):
-        self.n1 = 1
-        self.n2 = 1
+        self.fibo = 0
+        self.next_fibo = 1
         return self
 
+    # 0, 1, 1, 2, 3, 5
     def __next__(self):
-        if self.iteration < self.max_iterations:
-            x = self.n1 + self.n2
-            self.n1 = self.n2
-            self.n2 = x
-            self.iteration += 1
-            return x
-        else:
+        x = self.fibo
+        if self.max_iterations < 0:
             raise StopIteration
+        else:
+            self.fibo = self.next_fibo
+            self.next_fibo += x
+            self.max_iterations -= 1
+        return x
 
 
-# 1, 1, 2, 3, 5
 for i in FibonacciNumbers(10):
     print(i)
 #
